@@ -1,13 +1,25 @@
-CakePHP 3
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "nhadb";
 
-/vendor/*
-/config/app.php
-/tmp/*
-/logs/*
-
-CakePHP 2
-
-/app/tmp/*
-/app/Config/core.php
-/app/Config/database.php
-/vendors/*
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+// Check connection
+if ($conn->connect_error) {
+	die("Connection failed: " . $conn->connect_error);
+}
+if(isset($_POST['submit']))
+{
+	$username = $_GET['u'];
+	$course = $_POST['course'];
+		
+	$sql = "UPDATE user SET course='$course' WHERE username='$username'";
+	if (mysqli_query($conn, $sql))
+	{
+		echo '<script>alert("New Record Created Successfully!");</script>';
+	}
+		
+	//Close connection
+	$conn->close();
+}
